@@ -3,8 +3,8 @@ This is a project to offer a bare-metal super-simple code-framework for STM32 th
 
 ## Prerequisites
 Install [GNU ARM Embedded Toolchain.](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm)
-Install Python3.
-Install SCons.
+Install [Python3.](https://www.python.org)
+Install [SCons.](https://www.scons.org)
 
 ## To build the code
 Run SCons in the project-root.
