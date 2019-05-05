@@ -1,10 +1,10 @@
 /*
 *****************************************************************************
 **
-**  File        : STM32F10X_MD_LINKER.ld
+**  File        : STM32F10X_LD_LINKER.ld
 **
-**  Abstract    : Linker script for STM32 Medium Density devices with
-**                128 KByte FLASH, 20 KByte RAM
+**  Abstract    : Linker script for STM32 Low Density devices with
+**                32 KByte FLASH, 10 KByte RAM
 **
 **                Set heap size, stack size and stack location according
 **                to application requirements.
@@ -20,7 +20,7 @@
 ENTRY(Reset_Handler)
 
 /* Highest address of the user mode stack */
-_estack = 0x20005000;    /* end of 20K RAM */
+_estack = 0x20002710;    /* end of 10K RAM */
 
 /* Generate a link error if heap and stack don't fit into RAM */
 _Min_Heap_Size = 0;      /* required amount of heap  */
@@ -29,8 +29,8 @@ _Min_Stack_Size = 0x100; /* required amount of stack */
 /* Specify the memory areas */
 MEMORY
 {
-  FLASH (rx)      : ORIGIN = 0x08000000, LENGTH = 128K
-  RAM (xrw)       : ORIGIN = 0x20000000, LENGTH = 20K
+  FLASH (rx)      : ORIGIN = 0x08000000, LENGTH = 32K
+  RAM (xrw)       : ORIGIN = 0x20000000, LENGTH = 10K
   MEMORY_B1 (rx)  : ORIGIN = 0x60000000, LENGTH = 0K
 }
 
