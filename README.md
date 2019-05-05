@@ -7,7 +7,7 @@ Install [Python3.](https://www.python.org)
 Install [SCons.](https://www.scons.org)  
 
 ## To build the code  
-First edit the SConstrcut file according to which processor you would like to build for. Set the PROCESSOR_DERIVATIVE strinq equal to:    
+First edit the SConstruct file according to which processor you would like to build for. Set the PROCESSOR_DERIVATIVE string equal to:    
 
  STM32F10X_LD     STM32F10X_LD: STM32 Low density devices  
  STM32F10X_LD_VL  STM32F10X_LD_VL: STM32 Low density Value Line devices  
