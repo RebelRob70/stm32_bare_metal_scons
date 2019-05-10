@@ -1,0 +1,109 @@
+# NB! gnu arm toolchain must already be in system path.
+#
+# Please choose your processor derivative according to below:
+# STM32F40_41xxx is for STM32F405RG, STM32F405VG, STM32F405ZG, STM32F415RG, STM32F415VG, STM32F415ZG,
+#                       STM32F407VG, STM32F407VE, STM32F407ZG, STM32F407ZE, STM32F407IG, STM32F407IE, 
+#                       STM32F417VG, STM32F417VE, STM32F417ZG, STM32F417ZE, STM32F417IG and STM32F417IE Devices
+#
+# STM32F427_437xx is for STM32F427VG, STM32F427VI, STM32F427ZG, STM32F427ZI, STM32F427IG, STM32F427II,
+#                        STM32F437VG, STM32F437VI, STM32F437ZG, STM32F437ZI, STM32F437IG, STM32F437II Devices
+#
+# STM32F429_439xx is for STM32F429VG, STM32F429VI, STM32F429ZG, STM32F429ZI, STM32F429BG, STM32F429BI,
+#                        STM32F429NG, STM32F439NI, STM32F429IG, STM32F429II, STM32F439VG, STM32F439VI,
+#                        STM32F439ZG, STM32F439ZI, STM32F439BG, STM32F439BI, STM32F439NG, STM32F439NI,
+#                        STM32F439IG and STM32F439II Devices
+#
+# STM32F401xx is for STM32F401CB, STM32F401CC,  STM32F401RB, STM32F401RC, STM32F401VB, STM32F401VC,
+#                    STM32F401CD, STM32F401RD, STM32F401VD, STM32F401CExx, STM32F401RE and STM32F401VE Devices
+#
+# STM32F410xx is for STM32F410Tx, STM32F410Cx and STM32F410Rx
+#
+# STM32F411xE is for STM32F411CC, STM32F411RC, STM32F411VC, STM32F411CE, STM32F411RE and STM32F411VE Devices
+#
+# STM32F412xG is for STM32F412CEU, STM32F412CGU, STM32F412ZET, STM32F412ZGT, STM32F412ZEJ, STM32F412ZGJ,
+#                    STM32F412VET, STM32F412VGT, STM32F412VEH, STM32F412VGH, STM32F412RET, STM32F412RGT,
+#                    STM32F412REY and STM32F412RGY Devices
+#                                      
+# STM32F413_423xx is for STM32F413CGU, STM32F413CHU, STM32F413MGY, STM32F413MHY, STM32F413RGT, STM32F413VGT,
+#                        STM32F413ZGT, STM32F413RHT, STM32F413VHT, STM32F413ZHT, STM32F413VGH, STM32F413ZGJ,
+#                        STM32F413VHH, STM32F413ZHJ, STM32F423CHU, STM32F423RHT, STM32F423VHT, STM32F423ZHT,
+#                        STM32F423VHH and STM32F423ZHJ devices
+#
+# STM32F446xx is for STM32F446MC, STM32F446ME, STM32F446RC, STM32F446RE, STM32F446VC, STM32F446VE, STM32F446ZC 
+#                    and STM32F446ZE Devices
+#
+# STM32F469_479xx is for STM32F479AI, STM32F479II, STM32F479BI, STM32F479NI, STM32F479AG, STM32F479IG, STM32F479BG,
+#                        STM32F479NG, STM32F479AE, STM32F479IE, STM32F479BE, STM32F479NE Devices
+
+PROCESSOR_DERIVATIVE = 'STM32F40_41xxx'
+import os
+env = Environment(tools = ['gcc', 'gnulink'], ENV = os.environ)
+
+env['AR'] = 'arm-none-eabi-ar'
+env['AS'] = 'arm-none-eabi-as'
+env['CC'] = 'arm-none-eabi-gcc'
+env['CXX'] = 'arm-none-eabi-g++'
+env['LINK'] = 'arm-none-eabi-g++'                # predefined is 'arm-none-eabi-gcc'
+env['RANLIB'] = 'arm-none-eabi-ranlib'
+env['OBJCOPY'] = 'arm-none-eabi-objcopy'
+env['PROGSUFFIX'] = '.elf'
+
+# C-defines
+env.Append( CPPDEFINES = [
+    PROCESSOR_DERIVATIVE,
+    'USE_STDPERIPH_DRIVER',
+    'USE_FULL_ASSERT',
+])
+
+# Include locations
+env.Append( CPPPATH = [
+    'Libraries/CMSIS/CM3/CoreSupport/',
+    'Libraries/CMSIS/CM3/DeviceSupport/ST/STM32F10x',
+    'Libraries/STM32F10x_StdPeriph_Driver/inc/',
+    'Project/',
+])
+
+# Compiler flags
+env.Append( CCFLAGS = [
+    '-mcpu=cortex-m3',
+    '-mthumb',
+    '-O0', # Do not optimize-code (Level 0)
+    '-g', # Generate debug-information
+    '-ffunction-sections', # Remove un-used functions
+    '-fdata-sections', # Remove un-used data
+    '-std=gnu11',
+    '-mlittle-endian',
+    '-fno-exceptions',
+    '--specs=nano.specs',
+    '-Wall'
+])
+
+# Linker flags
+env.Append( LINKFLAGS = [
+    '-mthumb',
+    '-mcpu=cortex-m3',
+    '-specs=nosys.specs',
+    '-static',
+    '-Wl,-cref,-u,Reset_Handler',
+    '-Wl,-Map=main.map',
+    '-Wl,--gc-sections',
+    '-Wl,--defsym=malloc_getpagesize_P=0x80',
+    '-Wl,--start-group',
+    '-lc',
+    '-lm',
+    '-Wl,--end-group',
+    '-specs=nano.specs',
+    '-TProject/Linker/' + PROCESSOR_DERIVATIVE + '_LINKER.ld',
+]) 
+
+startup_file_name = 'startup_' + PROCESSOR_DERIVATIVE.lower() + '.s'
+# Source locations
+source = [
+        'Project/main.c',
+        'Project/stm32f10x_it.c',
+        'Libraries/CMSIS/CM3/DeviceSupport/ST/STM32F10x/startup/' + startup_file_name,
+        'Libraries/CMSIS/CM3/DeviceSupport/ST/STM32F10x/system_stm32f10x.c',
+]
+
+# build everything
+prg = env.Program( target = 'main', source = source )
