@@ -57,15 +57,15 @@ env.Append( CPPDEFINES = [
 
 # Include locations
 env.Append( CPPPATH = [
-    'Libraries/CMSIS/CM3/CoreSupport/',
-    'Libraries/CMSIS/CM3/DeviceSupport/ST/STM32F10x',
-    'Libraries/STM32F10x_StdPeriph_Driver/inc/',
+    'Libraries/CMSIS/Include/',
+    'Libraries/CMSIS/Device/ST/STM32F4xx/Include/',
+    'Libraries/STM32F4xx_StdPeriph_Driver/inc',
     'Project/',
 ])
 
 # Compiler flags
 env.Append( CCFLAGS = [
-    '-mcpu=cortex-m3',
+    '-mcpu=cortex-m4',
     '-mthumb',
     '-O0', # Do not optimize-code (Level 0)
     '-g', # Generate debug-information
@@ -81,7 +81,7 @@ env.Append( CCFLAGS = [
 # Linker flags
 env.Append( LINKFLAGS = [
     '-mthumb',
-    '-mcpu=cortex-m3',
+    '-mcpu=cortex-m4',
     '-specs=nosys.specs',
     '-static',
     '-Wl,-cref,-u,Reset_Handler',
