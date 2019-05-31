@@ -1,12 +1,12 @@
 # stm32_bare_metal_scons
 A project aimed to offer a bare-metal super-simple code-framework for STM32 that builds out-of-the-box using SCons. Thanks to SCons it will build on any of the platforms Win, Linux, MacOSX. The included project will configure the clocks and set up a sysTick interrupt. Thats it! The Standard Peripheral Driver library from STM is included in the repo for your convenience. Happy hacking!
 
-## Prerequisites
+## prerequisites
 Install [GNU ARM Embedded Toolchain.](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm)  
 Install [Python3.](https://www.python.org)  
 Install [SCons.](https://www.scons.org)  
 
-## To build the code  
+## to configure the code for STM32_F1 processors  
 First edit the SConstruct file according to which processor you would like to build for. Set the PROCESSOR_DERIVATIVE string equal to:    
 
  STM32F10X_LD     STM32F10X_LD: STM32 Low density devices  
@@ -18,4 +18,28 @@ First edit the SConstruct file according to which processor you would like to bu
  STM32F10X_XL     STM32F10X_XL: STM32 XL-density devices  
  STM32F10X_CL     STM32F10X_CL: STM32 Connectivity line devices  
 
+## to configure and build the code for STM32_F4 processors
+First edit the SConstruct file according to which processor you would like to build for. Set the PROCESSOR_DERIVATIVE string equal to:
+
+STM32F40_41xxx is for STM32F405RG, STM32F405VG, STM32F405ZG, STM32F415RG, STM32F415VG, STM32F415ZG, STM32F407VG, STM32F407VE, STM32F407ZG, STM32F407ZE, STM32F407IG, STM32F407IE, STM32F417VG, STM32F417VE, STM32F417ZG, STM32F417ZE, STM32F417IG and STM32F417IE Devices
+
+STM32F427_437xx is for STM32F427VG, STM32F427VI, STM32F427ZG, STM32F427ZI, STM32F427IG, STM32F427II, STM32F437VG, STM32F437VI, STM32F437ZG, STM32F437ZI, STM32F437IG, STM32F437II Devices
+
+STM32F429_439xx is for STM32F429VG, STM32F429VI, STM32F429ZG, STM32F429ZI, STM32F429BG, STM32F429BI, STM32F429NG, STM32F439NI, STM32F429IG, STM32F429II, STM32F439VG, STM32F439VI, STM32F439ZG, STM32F439ZI, STM32F439BG, STM32F439BI, STM32F439NG, STM32F439NI, STM32F439IG and STM32F439II Devices
+
+STM32F401xx is for STM32F401CB, STM32F401CC,  STM32F401RB, STM32F401RC, STM32F401VB, STM32F401VC, STM32F401CD, STM32F401RD, STM32F401VD, STM32F401CExx, STM32F401RE and STM32F401VE Devices
+
+STM32F410xx is for STM32F410Tx, STM32F410Cx and STM32F410Rx Devices
+
+STM32F411xE is for STM32F411CC, STM32F411RC, STM32F411VC, STM32F411CE, STM32F411RE and STM32F411VE Devices
+
+STM32F412xG is for STM32F412CEU, STM32F412CGU, STM32F412ZET, STM32F412ZGT, STM32F412ZEJ, STM32F412ZGJ, STM32F412VET, STM32F412VGT, STM32F412VEH, STM32F412VGH, STM32F412RET, STM32F412RGT, STM32F412REY and STM32F412RGY Devices
+
+STM32F413_423xx is for STM32F413CGU, STM32F413CHU, STM32F413MGY, STM32F413MHY, STM32F413RGT, STM32F413VGT, STM32F413ZGT, STM32F413RHT, STM32F413VHT, STM32F413ZHT, STM32F413VGH, STM32F413ZGJ, STM32F413VHH, STM32F413ZHJ, STM32F423CHU, STM32F423RHT, STM32F423VHT, STM32F423ZHT, STM32F423VHH and STM32F423ZHJ devices
+
+STM32F446xx is for STM32F446MC, STM32F446ME, STM32F446RC, STM32F446RE, STM32F446VC, STM32F446VE, STM32F446ZC and STM32F446ZE Devices
+
+STM32F469_479xx is for STM32F479AI, STM32F479II, STM32F479BI, STM32F479NI, STM32F479AG, STM32F479IG, STM32F479BG, STM32F479NG, STM32F479AE, STM32F479IE, STM32F479BE, STM32F479NE Devices
+
+## to build the code
 Run SCons in the project-root.
